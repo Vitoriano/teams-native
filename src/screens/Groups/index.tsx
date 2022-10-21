@@ -7,6 +7,7 @@ import { GroupCard } from '@components/GroupCard';
 import { Header } from '@components/Header';
 import { Highlight } from '@components/Highlight';
 import { ListEmpty } from '@components/ListEmpty';
+import { Button } from '@components/Button';
 
 
 export default function Groups() {
@@ -35,6 +36,10 @@ export default function Groups() {
             />
           )}
 
+      />
+
+      <Button 
+        title="Cria nova turma"
       />
     </S.Container>
   );
