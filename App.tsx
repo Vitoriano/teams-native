@@ -1,7 +1,7 @@
 
 import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components';
-import { SafeAreaView } from 'react-native-safe-area-context';
+//import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFonts, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto'
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -17,7 +17,7 @@ export default function App() {
   const [fontsLoaded] = useFonts({Roboto_400Regular, Roboto_700Bold});
 
   return (
-    <SafeAreaView style={[styles.container]}>
+    // <SafeAreaView style={[styles.container]}>
       <ThemeProvider theme={theme}>
         
         <StatusBar 
@@ -28,7 +28,7 @@ export default function App() {
       
         { fontsLoaded ? <Groups />: <Loading />}
       </ThemeProvider>
-    </SafeAreaView>
+    // </SafeAreaView>
     
   );
 }
