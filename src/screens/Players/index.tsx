@@ -5,12 +5,14 @@ import { Header } from "@components/Header";
 import { Highlight } from "@components/Highlight";
 import { Input } from "@components/Input";
 import { Container, Form, HeaderList, NumbersOfPlayers } from "./styles";
-import { useState } from "react";
+import React, { useState } from "react";
+import { PlayerCard } from "@components/PlayerCard";
+import { ListEmpty } from "@components/ListEmpty";
 
 export function Players() {
 
   const [team, setTeam] = useState('Time A');
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState(['Vitoriano', 'Vini']);
 
   return (
     <Container >
@@ -51,7 +53,27 @@ export function Players() {
           </NumbersOfPlayers>
       </HeaderList>
      
-
+      <FlatList 
+        data={players}
+        keyExtractor={item => item}
+        renderItem={({ item }) => (
+          <PlayerCard 
+            name={item}
+            onRemove = {() => {}}
+          />
+        )}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={[
+          { paddingBottom: 100},
+          players.length === 0 && { flex: 1}
+        ]}
+        ListEmptyComponent={() => (
+          <ListEmpty 
+            message="Não há pessoas nesse time!" 
+          />
+        )}
+      />
+     
     
     </Container>
   )
