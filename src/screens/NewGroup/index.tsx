@@ -6,13 +6,16 @@ import { Highlight } from '@components/Highlight';
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
 
 export function NewGroup() {
 
   const navigation = useNavigation();
 
+  const [group, setGroup] = useState('');
+
   function handleNew() {
-    navigation.navigate('players', { group: 'Time'});
+    navigation.navigate('players', { group });
   }
 
   return (
@@ -31,6 +34,7 @@ export function NewGroup() {
 
         <Input 
           placeholder='Nome da Turma'
+          onChangeText={setGroup}
         />
         <Button 
           title="Criar"
