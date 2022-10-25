@@ -8,6 +8,7 @@ import { Container, Form, HeaderList, NumbersOfPlayers } from "./styles";
 import React, { useState } from "react";
 import { PlayerCard } from "@components/PlayerCard";
 import { ListEmpty } from "@components/ListEmpty";
+import { Button } from "@components/Button";
 
 export function Players() {
 
@@ -74,7 +75,10 @@ export function Players() {
         )}
       />
      
-    
+      <Button 
+        title="Remover Turma"
+        type="SECONDARY"
+      />
     </Container>
   )
 }
