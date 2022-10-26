@@ -8,6 +8,8 @@ import { Input } from '@components/Input';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import { groupCreate } from '@storage/group/groupCreate';
+import { AppError } from '@utils/AppError';
+import { Alert } from 'react-native';
 
 export function NewGroup() {
 
@@ -16,14 +18,20 @@ export function NewGroup() {
   const [group, setGroup] = useState('');
 
   async function handleNew() {
-    
+
     try {
+
       await groupCreate(group);
+      navigation.navigate('players', { group });
+
     } catch (error) {
+      if(error instanceof AppError) {
+        Alert.alert('Novo Grupo', error._message)
+        setGroup('');
+      }
       console.log(error);
     }
-   
-    navigation.navigate('players', { group });
+    
   }
 
   return (
@@ -43,6 +51,7 @@ export function NewGroup() {
         <Input 
           placeholder='Nome da Turma'
           onChangeText={setGroup}
+          value={group}
         />
         <Button 
           title="Criar"

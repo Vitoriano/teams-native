@@ -53,7 +53,10 @@ export default function Groups() {
               title={item}
             />
           )}
-          contentContainerStyle={groups.length === 0 && { flex: 1} }
+          contentContainerStyle={[
+            { paddingBottom: 80},
+            groups.length === 0 && { flex: 1}
+          ]}
           ListEmptyComponent={() => (
             <ListEmpty 
               message="Que tal cadastra a primeira turma ?" 
