@@ -9,13 +9,14 @@ import React, { useCallback, useState, useRef } from "react";
 import { PlayerCard } from "@components/PlayerCard";
 import { ListEmpty } from "@components/ListEmpty";
 import { Button } from "@components/Button";
-import { useFocusEffect, useRoute } from "@react-navigation/native";
+import { useFocusEffect, useRoute, useNavigation } from "@react-navigation/native";
 import { playerAddByGroup } from "@storage/players/playerAddByGroup";
 import { PlayersGetByGroup } from "@storage/players/playersGetByGroup";
 import { AppError } from "@utils/AppError";
 import { playersGetByGroupAndTeam } from "@storage/players/playerGetByGroupAndTeam";
 import { PlayerStorageDTO } from "@storage/players/PlayerStorageDTO";
 import { PlayerRemoveByGroup } from "@storage/players/playerRemoveByGroup";
+import { groupRemoveByName } from "@storage/group/groupRemoveByName";
 
 type RouteParams = {
   group: string;
@@ -26,6 +27,7 @@ export function Players() {
   const [team, setTeam] = useState('Time A');
   const [players, setPlayers] = useState<PlayerStorageDTO[]>([]);
   const [newPlayerName, setNewPlayerName] = useState('');
+  const navigation = useNavigation();
 
   const route = useRoute();
   const newPlayerNameInputRef = useRef<TextInput>(null);
@@ -74,6 +76,28 @@ export function Players() {
       } catch (error) {
         console.log(error);
       }
+  }
+
+  async function handleRmeove() {
+
+    try {
+      await groupRemoveByName(group);
+      navigation.navigate('groups');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function handleGroupRemove() {
+    Alert.alert(
+      'Remover',
+      'Deseja remover o grupo ?',
+      [
+        {text: 'Não', style: 'cancel'},
+        {text: 'Sim', onPress: () => handleRmeove() }
+      ]
+    )
+   
   }
 
   useFocusEffect(
@@ -149,6 +173,7 @@ export function Players() {
       <Button 
         title="Remover Turma"
         type="SECONDARY"
+        onPress={handleGroupRemove}
       />
     </Container>
   )
