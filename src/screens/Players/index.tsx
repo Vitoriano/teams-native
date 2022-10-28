@@ -15,6 +15,7 @@ import { PlayersGetByGroup } from "@storage/players/playersGetByGroup";
 import { AppError } from "@utils/AppError";
 import { playersGetByGroupAndTeam } from "@storage/players/playerGetByGroupAndTeam";
 import { PlayerStorageDTO } from "@storage/players/PlayerStorageDTO";
+import { PlayerRemoveByGroup } from "@storage/players/playerRemoveByGroup";
 
 type RouteParams = {
   group: string;
@@ -62,6 +63,17 @@ export function Players() {
     } catch (error) {
       
     }
+  }
+
+  async function handleRemovePlayer(playerName: string) {
+      try {
+        
+        await PlayerRemoveByGroup(playerName, group);
+        fetchPlayersByteam();
+
+      } catch (error) {
+        console.log(error);
+      }
   }
 
   useFocusEffect(
@@ -119,7 +131,7 @@ export function Players() {
         renderItem={({ item }) => (
           <PlayerCard 
             name={item.name}
-            onRemove = {() => {}}
+            onRemove = {() => handleRemovePlayer(item.name)}
           />
         )}
         showsVerticalScrollIndicator={false}
